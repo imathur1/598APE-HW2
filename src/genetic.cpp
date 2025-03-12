@@ -157,12 +157,12 @@ void cpp_evolve(const std::vector<program> &h_oldprogs,
         auto donor_index = d_win_indices[donor_pos];
         donor_pos++;
         crossover(h_oldprogs[parent_index], h_oldprogs[donor_index],
-                  h_nextprogs[pos], params, h_gen);
+                  h_nextprogs[pos], h_gen);
       } else if (h_nextprogs[pos].mut_type == mutation_t::subtree) {
         subtree_mutation(h_oldprogs[parent_index], h_nextprogs[pos], params,
                          h_gen);
       } else if (h_nextprogs[pos].mut_type == mutation_t::hoist) {
-        hoist_mutation(h_oldprogs[parent_index], h_nextprogs[pos], params,
+        hoist_mutation(h_oldprogs[parent_index], h_nextprogs[pos],
                        h_gen);
       } else if (h_nextprogs[pos].mut_type == mutation_t::point) {
         point_mutation(h_oldprogs[parent_index], h_nextprogs[pos], params,
@@ -360,7 +360,7 @@ std::string stringify(const program &prog) {
 }
 
 void symFit(const float *input, const float *labels,
-            const float *sample_weights, const int n_rows, const int n_cols,
+            const float *sample_weights, const int n_rows,
             param &params, program_t &final_progs,
             std::vector<std::vector<program>> &history) {
 
@@ -507,7 +507,7 @@ void symClfPredict(const float *input, const int n_rows, const param &params,
 
 void symTransform(const float *input, const param &params,
                   const program_t &final_progs, const int n_rows,
-                  const int n_cols, float *output) {
+                  float *output) {
   // cudaStream_t stream = handle.get_stream();
   // Execute final_progs(ordered by fitness) on input
   // output of size [n_rows,hall_of_fame]

@@ -40,7 +40,7 @@ std::string stringify(const program &prog);
  * function.
  */
 void symFit(const float *input, const float *labels,
-            const float *sample_weights, const int n_rows, const int n_cols,
+            const float *sample_weights, const int n_rows,
             param &params, program_t &final_progs,
             std::vector<std::vector<program>> &history);
 
@@ -97,6 +97,6 @@ void symClfPredict(const float *input, const int n_rows, const param &params,
  */
 void symTransform(const float *input, const param &params,
                   const program_t &final_progs, const int n_rows,
-                  const int n_cols, float *output);
+                  float *output);
 
 } // namespace genetic

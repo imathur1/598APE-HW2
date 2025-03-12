@@ -25,7 +25,7 @@ struct program {
   /**
    * Default constructor
    */
-  explicit program();
+  program();
 
   /**
    * @brief Destroy the program object
@@ -38,7 +38,7 @@ struct program {
    *
    * @param src
    */
-  explicit program(const program &src);
+  program(const program &src);
 
   /**
    * @brief assignment operator
@@ -48,6 +48,7 @@ struct program {
    * @return current program reference
    */
   program &operator=(const program &src);
+  
 
   node *nodes;
   /** total number of nodes in this AST */
@@ -211,7 +212,7 @@ void point_mutation(const program &prog, program &p_out, const param &params,
  * @param rng     RNG for subtree selection
  */
 void crossover(const program &prog, const program &donor, program &p_out,
-               const param &params, PhiloxEngine &rng);
+              PhiloxEngine &rng);
 
 /**
  * @brief Performs a crossover mutation with a randomly built new program.
@@ -236,6 +237,6 @@ void subtree_mutation(const program &prog, program &p_out, const param &params,
  * @param params  Training hyperparameters
  * @param rng     RNG to control subtree selection
  */
-void hoist_mutation(const program &prog, program &p_out, const param &params,
+void hoist_mutation(const program &prog, program &p_out,
                     PhiloxEngine &rng);
 } // namespace genetic
