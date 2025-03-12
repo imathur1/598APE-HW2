@@ -21,7 +21,7 @@ void weightedPearson(const uint64_t n_samples, const uint64_t n_progs,
   std::vector<math_t> y_tmp(n_samples);
   std::vector<math_t> x_tmp(n_samples * n_progs);
 
-  math_t y_mu;                       // output mean
+  math_t y_mu = 0.0;                       // output mean
   std::vector<math_t> x_mu(n_progs); // predicted output mean
 
   std::vector<math_t> y_diff(n_samples);           // normalized output
@@ -216,7 +216,7 @@ void meanAbsoluteError(const uint64_t n_samples, const uint64_t n_progs,
   for (uint64_t pid = 0; pid < n_progs; ++pid) {
     for (uint64_t i = 0; i < n_samples; ++i) {
       error[pid * n_samples + i] =
-          N * W[i] * abs(Y_pred[pid * n_samples + i] - Y[i]) / WS;
+          N * W[i] * std::abs(Y_pred[pid * n_samples + i] - Y[i]) / WS;
     }
   }
 

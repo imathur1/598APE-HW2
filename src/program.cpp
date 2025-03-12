@@ -394,7 +394,7 @@ void point_mutation(const program &prog, program &p_out, const param &params,
 }
 
 void crossover(const program &prog, const program &donor, program &p_out,
-               const param &params, PhiloxEngine &rng) {
+               PhiloxEngine &rng) {
   // Get a random subtree of prog to replace
   std::pair<int, int> prog_slice = get_subtree(prog.nodes, prog.len, rng);
   int prog_start = prog_slice.first;
@@ -453,10 +453,10 @@ void subtree_mutation(const program &prog, program &p_out, const param &params,
   // Generate a random program and perform crossover
   program new_program;
   build_program(new_program, params, rng);
-  crossover(prog, new_program, p_out, params, rng);
+  crossover(prog, new_program, p_out, rng);
 }
 
-void hoist_mutation(const program &prog, program &p_out, const param &params,
+void hoist_mutation(const program &prog, program &p_out,
                     PhiloxEngine &rng) {
   // Replace program subtree with a random sub-subtree
 
