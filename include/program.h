@@ -25,7 +25,7 @@ struct program {
   /**
    * Default constructor
    */
-  explicit program();
+  program();
 
   /**
    * @brief Destroy the program object
@@ -38,7 +38,7 @@ struct program {
    *
    * @param src
    */
-  explicit program(const program &src);
+  program(const program &src);
 
   /**
    * @brief assignment operator
@@ -48,6 +48,7 @@ struct program {
    * @return current program reference
    */
   program &operator=(const program &src);
+  
 
   node *nodes;
   /** total number of nodes in this AST */
