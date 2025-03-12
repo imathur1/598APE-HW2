@@ -1,5 +1,5 @@
-CXX := g++
-CXXFLAGS := -std=c++17 -Wall -Wextra -I include -I.
+CXX := clang++
+CXXFLAGS := -std=c++17 -Wall -Wextra -O3 -I include -I.
 LDFLAGS := -lprofiler
 
 # Enable profiling via a macro
