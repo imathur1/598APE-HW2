@@ -14,6 +14,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <gperftools/profiler.h>
 // Include ctimer for end-to-end timing
 #include "common.h"
 #include "ctimer.h"
@@ -21,6 +22,10 @@
 #include "genetic.h"
 #include "node.h"
 #include "program.h"
+
+#ifndef PROFILE
+#define PROFILE 0
+#endif
 
 // Utility functions
 namespace utils {
@@ -440,6 +445,10 @@ int main(int argc, char *argv[]) {
 
     std::string arg_dset(argv[1]);
 
+    #if PROFILE
+      ProfilerStart("my_profile.prof");
+    #endif
+
     if (arg_dset == "diabetes") {
       run_symbolic_regression(regression_dataset);
     } else if (arg_dset == "cancer") {
@@ -447,6 +456,10 @@ int main(int argc, char *argv[]) {
     } else if (arg_dset == "housing") {
       run_symbolic_regression(housing_dataset);
     }
+
+    #if PROFILE
+      ProfilerStop();
+    #endif
 
     return 0;
   } catch (const std::exception &e) {
