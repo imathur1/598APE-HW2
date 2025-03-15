@@ -1,5 +1,5 @@
 CXX := clang++
-CXXFLAGS := -std=c++17 -Wall -Wextra -O2 -march=native -ffast-math -I include -I.
+CXXFLAGS := -std=c++17 -Wall -Wextra -O2 -march=native -I include -I.
 LDFLAGS := -lprofiler
 
 # Enable profiling via a macro
