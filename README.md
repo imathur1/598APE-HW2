@@ -23,8 +23,8 @@ To run the tests to check for correctness:
 ```bash
 ./run_tests.sh
 ```
-Note that halfway through we noticed `sortPrograms` does not work as intended due to NaN values. The TA added a fix for this
-and we updated our baseline to reflect this (`output/cancer_correct.txt`, `output/diabetes_correct.txt`, `output/housing_correct.txt`).
+Note that halfway through (specifically commit hash `4573eb4`) we noticed `sortPrograms` does not work as intended due to NaN values. The TA added a fix for this
+and we updated our baselines (`output/cancer_correct.txt`, `output/diabetes_correct.txt`, `output/housing_correct.txt`) to reflect this.
 
 This program assumes the following are installed on your machine:
 * A working C++ compiler (g++ is assumed in the Makefile)
