@@ -16,4 +16,4 @@ Best program 2 details:
 - Raw fitness: 0.77411
 - Test MSE: 0.748242
 - Program: ( add( cos( cos( log( add( cos( X2) , mult( cos( log( sub( add( abs( log( X0) ) , mult( cos( log( sub( sin( cos( add( X0, X0) ) ) , X6) ) ) , add( X0, -0.749124) ) ) , X6) ) ) , add( X0, -0.749124) ) ) ) ) ) , log( abs( X0) ) ) )
-Time(Symbolic Regression (End-to-End)) = 210.167048079 sec
+Time(Symbolic Regression (End-to-End)) = 23.929005055 sec
