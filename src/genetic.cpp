@@ -162,8 +162,7 @@ void cpp_evolve(const std::vector<program> &h_oldprogs,
         subtree_mutation(h_oldprogs[parent_index], h_nextprogs[pos], params,
                          h_gen);
       } else if (h_nextprogs[pos].mut_type == mutation_t::hoist) {
-        hoist_mutation(h_oldprogs[parent_index], h_nextprogs[pos],
-                       h_gen);
+        hoist_mutation(h_oldprogs[parent_index], h_nextprogs[pos], h_gen);
       } else if (h_nextprogs[pos].mut_type == mutation_t::point) {
         point_mutation(h_oldprogs[parent_index], h_nextprogs[pos], params,
                        h_gen);
@@ -360,8 +359,8 @@ std::string stringify(const program &prog) {
 }
 
 void symFit(const float *input, const float *labels,
-            const float *sample_weights, const int n_rows,
-            param &params, program_t &final_progs,
+            const float *sample_weights, const int n_rows, param &params,
+            program_t &final_progs,
             std::vector<std::vector<program>> &history) {
 
   // Update arity map in params - Need to do this only here, as all operations
