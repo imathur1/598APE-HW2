@@ -23,7 +23,7 @@ To run the tests to check for correctness:
 ```bash
 ./run_tests.sh
 ```
-Note that halfway through (specifically commit hash `4573eb4`) we noticed `sortPrograms` does not work as intended due to NaN values. The TA added a fix for this
+Note that halfway through (specifically tag `ta-fix`) we noticed `sortPrograms` does not work as intended due to NaN values. The TA added a fix for this
 and we updated our baselines (`output/cancer_correct.txt`, `output/diabetes_correct.txt`, `output/housing_correct.txt`) to reflect this.
 
 This program assumes the following are installed on your machine:
@@ -74,7 +74,7 @@ make view-profile
 ```
 
 ## Optimizations
-A full analysis can be found in our paper, `Mini_Paper_2__SymbolicRegression.pdf`. Our charts were generated in `analysis.py` using the following commands:
+A full analysis can be found in our paper, `Mini_Paper_2__Symbolic_Regression.pdf`. Our charts were generated in `analysis.py` using the following commands:
 1. Install pip:
    ```bash
    sudo apt install python3-pip
