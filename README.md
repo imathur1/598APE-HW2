@@ -14,6 +14,18 @@ To clean existing build artifacts run:
 make clean
 ```
 
+To compile the program with profiling on run:
+```bash
+make -j PROFILE=1
+```
+
+To run the tests to check for correctness:
+```bash
+./run_tests.sh
+```
+Note that halfway through we noticed `sortPrograms` does not work as intended due to NaN values. The TA added a fix for this
+and we updated our baseline to reflect this (`output/cancer_correct.txt`, `output/diabetes_correct.txt`, `output/housing_correct.txt`).
+
 This program assumes the following are installed on your machine:
 * A working C++ compiler (g++ is assumed in the Makefile)
 * make
@@ -55,6 +67,44 @@ The behaviour of the training run can be tuned through the `param` struct, which
 ```
 
 As we run the program, we see the time taken for a end to end run of symbolic regression. We have placed a timer around both the sybolic regression driver code as well as the code for binary classification. Similar to HW1, your goal is to reduce this runtime as much as possible, while maintining/increasing complexity. 
+
+If compiled with profiling, running the program will output a `my_profile.prof` file which can be visualized by running:
+```bash
+make view-profile
+```
+
+## Optimizations
+A full analysis can be found in our paper, `Mini_Paper_2__SymbolicRegression.pdf`. Our charts were generated in `analysis.py` using the following commands:
+1. Install pip:
+   ```bash
+   sudo apt install python3-pip
+   ```
+2. Install matplotlib:
+    ```bash
+    pip install matplotlib
+    ```
+3. Run the analysis:
+    ```bash
+    python analysis.py
+    ```
+
+You can run our optimizations with the following commands:
+1. Checkout tag:
+   ```bash
+   git checkout <TAG>
+   ```
+2. Recompile program:
+    ```bash
+    make clean && make -j
+    ```
+3. Run tests for correctness:
+    ```bash
+    ./run_tests.sh
+    ```
+4. Run benchmarks, for example diabetes:
+    ```bash
+    ./genetic_benchmark diabetes
+    ```
 
 ## Input Datasets
 This project contains three input datasets for you to optimize. All 3 are standard scikit-learn datasets. 
