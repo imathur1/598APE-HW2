@@ -5,15 +5,15 @@ Loading dataset...
 Dataset dimensions: 442 samples x 10 features
 Training symbolic regressor with 512 population size and 16 generations
 Best program 1 details:
-- Length: 47 nodes
+- Length: 122 nodes
 - Depth: 10
-- Raw fitness: 4702.25
-- Test MSE: 3434.51
-- Program: ( add( fdim( exp( exp( exp( X2) ) ) , fdim( cos( abs( cos( X3) ) ) , abs( mult( X7, X0) ) ) ) , add( fdim( exp( exp( exp( X2) ) ) , fdim( abs( X3) , abs( mult( X7, X0) ) ) ) , exp( log( fdim( exp( add( exp( exp( add( X8, X0) ) ) , add( exp( X0) , exp( abs( X3) ) ) ) ) , cos( cos( X4) ) ) ) ) ) ) )
+- Raw fitness: 6535.9
+- Test MSE: 5615.1
+- Program: ( mult( sub( sub( add( cos( add( X5, X0) ) , cos( mult( X7, X7) ) ) , mult( sin( cos( X8) ) , log( sub( X6, X5) ) ) ) , sub( sub( cos( fdim( X2, X9) ) , sub( sin( X5) , log( mult( X1, X1) ) ) ) , sin( add( cos( X6) , fdim( X4, X0) ) ) ) ) , add( fdim( sub( add( fdim( sin( X5) , log( sub( X8, X9) ) ) , fdim( add( add( cos( X6) , sin( mult( X0, X3) ) ) , abs( log( X3) ) ) , abs( sin( sub( X0, X6) ) ) ) ) , cos( cos( X4) ) ) , add( mult( abs( X5) , log( X8) ) , cos( log( X9) ) ) ) , sub( sub( add( sub( X0, X9) , cos( mult( X7, X7) ) ) , mult( log( fdim( X4, sub( X4, X3) ) ) , cos( sin( fdim( sub( X0, X9) , abs( X8) ) ) ) ) ) , sub( sub( cos( fdim( X2, X9) ) , sub( sin( X5) , log( X0) ) ) , sin( abs( log( abs( abs( X7) ) ) ) ) ) ) ) ) )
 Best program 2 details:
-- Length: 74 nodes
-- Depth: 13
-- Raw fitness: 4994.76
-- Test MSE: 3914.01
-- Program: ( add( sub( 0.004944, X0) , add( fdim( exp( add( add( fdim( cos( abs( cos( X3) ) ) , sin( exp( X8) ) ) , exp( mult( cos( fdim( X0, X3) ) , cos( cos( sin( mult( exp( X0) , sin( X3) ) ) ) ) ) ) ) , add( cos( mult( X7, X0) ) , exp( mult( sub( sin( X3) , mult( X0, X8) ) , cos( X7) ) ) ) ) ) , fdim( abs( sub( X5, X0) ) , abs( mult( X7, X0) ) ) ) , exp( log( fdim( exp( add( exp( exp( add( X8, X0) ) ) , add( exp( X0) , exp( abs( X3) ) ) ) ) , cos( exp( X0) ) ) ) ) ) ) )
-Time(Symbolic Regression (End-to-End)) = 9.810220207 sec
+- Length: 126 nodes
+- Depth: 10
+- Raw fitness: 6608.42
+- Test MSE: 5741.73
+- Program: ( mult( sub( sub( add( cos( add( X5, X0) ) , cos( mult( X7, X7) ) ) , mult( sin( cos( X8) ) , log( sub( X6, X5) ) ) ) , sub( sub( cos( fdim( X2, X9) ) , sub( sin( X5) , log( mult( X1, X1) ) ) ) , sin( add( fdim( sub( log( X9) , cos( cos( X4) ) ) , add( mult( abs( X5) , log( X8) ) , cos( log( X9) ) ) ) , fdim( X4, X0) ) ) ) ) , add( fdim( sub( add( fdim( sin( X5) , log( sub( X8, X9) ) ) , fdim( add( add( cos( X6) , sin( mult( X0, X3) ) ) , abs( log( X3) ) ) , abs( fdim( abs( X8) , X1) ) ) ) , cos( cos( X4) ) ) , add( mult( abs( X5) , log( X8) ) , cos( log( X9) ) ) ) , sub( sub( add( sub( X0, X9) , cos( mult( X7, X7) ) ) , mult( log( add( X4, X8) ) , cos( sin( fdim( sub( X0, X9) , abs( X8) ) ) ) ) ) , sub( log( X4) , sin( abs( log( abs( abs( X7) ) ) ) ) ) ) ) ) )
+Time(Symbolic Regression (End-to-End)) = 20.397200703 sec
