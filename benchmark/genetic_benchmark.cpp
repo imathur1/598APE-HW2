@@ -146,33 +146,60 @@ float accuracy(const std::vector<float> &y_true,
 
 using namespace genetic;
 
-void sortPrograms(genetic::program *programs, int size) {
-  // Use lambda to compare raw_fitness_
-  // std::stable_sort(programs, programs + size,
-  //     [](const genetic::program &a, const genetic::program &b) {
-  //         return a.raw_fitness_ < b.raw_fitness_;
-  //     }
-  // );
-  // set any nan values to +inf
+// void sortPrograms(genetic::program *programs, int size) {
+//   // set any nan values to +inf
+//   for (int i = 0; i < size; ++i) {
+//     if (std::isnan(programs[i].raw_fitness_)) {
+//       programs[i].raw_fitness_ = std::numeric_limits<float>::max();
+//     }
+//   }
 
-  for (int i = 0; i < size; ++i) {
-    if (std::isnan(programs[i].raw_fitness_)) {
-      programs[i].raw_fitness_ = std::numeric_limits<float>::max();
+//   // do insertion sort
+//   for (int i = 1; i < size; i++) {
+//     genetic::program key(programs[i]);
+//     int j = i - 1;
+
+//     while (j >= 0 && (programs[j].raw_fitness_ > key.raw_fitness_)) {
+//       programs[j + 1] = programs[j];
+//       j--;
+//     }
+//     programs[j + 1] = key;
+//   }
+// }
+
+void findTop2Programs(genetic::program *programs, int size) {
+  genetic::program best1 = programs[0];
+  genetic::program best2 = programs[1];
+
+  // treat nans as +inf
+  if (std::isnan(best1.raw_fitness_)) {
+    best1.raw_fitness_ = std::numeric_limits<float>::max();
+  }
+  if (std::isnan(best2.raw_fitness_)) {
+    best2.raw_fitness_ = std::numeric_limits<float>::max();
+  }
+
+  if (best2.raw_fitness_ < best1.raw_fitness_) {
+    std::swap(best1, best2);
+  }
+
+  for (int i = 2; i < size; ++i) {
+    // skip because nan can't be best
+    if (!std::isnan(programs[i].raw_fitness_)) {
+      float fitness = programs[i].raw_fitness_;
+      if (fitness < best1.raw_fitness_) {
+        best2 = best1;
+        best1 = programs[i];
+      } else if (fitness < best2.raw_fitness_) {
+        best2 = programs[i];
+      }
     }
   }
 
-  // do insertion sort
-  for (int i = 1; i < size; i++) {
-    genetic::program key(programs[i]);
-    int j = i - 1;
-
-    while (j >= 0 && (programs[j].raw_fitness_ > key.raw_fitness_)) {
-      programs[j + 1] = programs[j];
-      j--;
-    }
-    programs[j + 1] = key;
-  }
+  programs[0] = best1;
+  programs[1] = best2;
 }
+
 
 void run_symbolic_regression(const std::string &dataset_file) {
   std::cout << "\n===== Symbolic Regression Benchmark =====\n" << std::endl;
@@ -263,7 +290,7 @@ void run_symbolic_regression(const std::string &dataset_file) {
   // }
 
   // Predict on top 2 candidates
-  sortPrograms(final_programs, params.population_size);
+  findTop2Programs(final_programs, params.population_size);
 
   std::vector<float> y_pred1(X_test.size());
   genetic::symRegPredict(X_test_flat.data(), X_test.size(), &final_programs[0],
@@ -403,7 +430,7 @@ void run_symbolic_classification(const std::string &dataset_file) {
   // }
 
   // Predict classes for best 2 programs acc to training
-  sortPrograms(final_programs, params.population_size);
+  findTop2Programs(final_programs, params.population_size);
   std::vector<float> y_pred1(X_test.size());
   genetic::symClfPredict(X_test_flat.data(), X_test.size(), params,
                          &final_programs[0], y_pred1.data());
