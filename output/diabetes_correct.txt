@@ -14,6 +14,6 @@ Best program 2 details:
 - Length: 126 nodes
 - Depth: 10
 - Raw fitness: 6608.42
-- Test MSE: 5741.73
+- Test MSE: 5741.74
 - Program: ( mult( sub( sub( add( cos( add( X5, X0) ) , cos( mult( X7, X7) ) ) , mult( sin( cos( X8) ) , log( sub( X6, X5) ) ) ) , sub( sub( cos( fdim( X2, X9) ) , sub( sin( X5) , log( mult( X1, X1) ) ) ) , sin( add( fdim( sub( log( X9) , cos( cos( X4) ) ) , add( mult( abs( X5) , log( X8) ) , cos( log( X9) ) ) ) , fdim( X4, X0) ) ) ) ) , add( fdim( sub( add( fdim( sin( X5) , log( sub( X8, X9) ) ) , fdim( add( add( cos( X6) , sin( mult( X0, X3) ) ) , abs( log( X3) ) ) , abs( fdim( abs( X8) , X1) ) ) ) , cos( cos( X4) ) ) , add( mult( abs( X5) , log( X8) ) , cos( log( X9) ) ) ) , sub( sub( add( sub( X0, X9) , cos( mult( X7, X7) ) ) , mult( log( add( X4, X8) ) , cos( sin( fdim( sub( X0, X9) , abs( X8) ) ) ) ) ) , sub( log( X4) , sin( abs( log( abs( abs( X7) ) ) ) ) ) ) ) ) )
-Time(Symbolic Regression (End-to-End)) = 20.397200703 sec
+Time(Symbolic Regression (End-to-End)) = 2.020137371 sec

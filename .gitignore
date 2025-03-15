@@ -34,3 +34,7 @@
 compile_commands.json
 .cache/
 genetic_benchmark
+
+output/cancer.txt
+output/diabetes.txt
+output/housing.txt
