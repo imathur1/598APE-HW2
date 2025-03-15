@@ -7,6 +7,7 @@
 #include <chrono>
 #include <cmath>
 #include <fstream>
+#include <gperftools/profiler.h>
 #include <iomanip>
 #include <iostream>
 #include <numeric>
@@ -14,7 +15,6 @@
 #include <sstream>
 #include <string>
 #include <vector>
-#include <gperftools/profiler.h>
 // Include ctimer for end-to-end timing
 #include "common.h"
 #include "ctimer.h"
@@ -146,15 +146,22 @@ float accuracy(const std::vector<float> &y_true,
 
 using namespace genetic;
 
-void sortPrograms(genetic::program* programs, int size) {
-
+void sortPrograms(genetic::program *programs, int size) {
   // Use lambda to compare raw_fitness_
-  // std::stable_sort(programs, programs + size, 
+  // std::stable_sort(programs, programs + size,
   //     [](const genetic::program &a, const genetic::program &b) {
   //         return a.raw_fitness_ < b.raw_fitness_;
   //     }
   // );
+  // set any nan values to +inf
 
+  for (int i = 0; i < size; ++i) {
+    if (std::isnan(programs[i].raw_fitness_)) {
+      programs[i].raw_fitness_ = std::numeric_limits<float>::max();
+    }
+  }
+
+  // do insertion sort
   for (int i = 1; i < size; i++) {
     genetic::program key(programs[i]);
     int j = i - 1;
@@ -165,7 +172,6 @@ void sortPrograms(genetic::program* programs, int size) {
     }
     programs[j + 1] = key;
   }
-
 }
 
 void run_symbolic_regression(const std::string &dataset_file) {
@@ -214,16 +220,16 @@ void run_symbolic_regression(const std::string &dataset_file) {
   // Function set
   {
     using namespace genetic;
-    params.function_set = {node::type::add, node::type::sub,  node::type::mul,
-                           node::type::abs, node::type::sin,  node::type::cos,
-                           node::type::exp, node::type::fdim, node::type::log};
+    params.function_set = {node::type::add,  node::type::sub, node::type::mul,
+                           node::type::abs,  node::type::sin, node::type::cos,
+                           node::type::fdim, node::type::log};
     // Arity set
-    params.arity_set = {{1,
-                         {node::type::abs, node::type::sin, node::type::cos,
-                          node::type::exp, node::type::exp, node::type::log}},
-                        {2,
-                         {node::type::add, node::type::sub, node::type::mul,
-                          node::type::fdim}}};
+    params.arity_set = {
+        {1,
+         {node::type::abs, node::type::sin, node::type::cos, node::type::log}},
+        {2,
+         {node::type::add, node::type::sub, node::type::mul,
+          node::type::fdim}}};
   }
 
   params.metric = genetic::metric_t::mse; // Use MSE as the fitness metric
@@ -240,7 +246,6 @@ void run_symbolic_regression(const std::string &dataset_file) {
             << " population size and " << params.generations << " generations"
             << std::endl;
 
-
   // Create history vector to store programs
   genetic::program_t final_programs;
   final_programs = new genetic::program[params.population_size]();
@@ -248,7 +253,7 @@ void run_symbolic_regression(const std::string &dataset_file) {
 
   // Train the model
   genetic::symFit(X_train_flat.data(), y_train.data(), sample_weights.data(),
-                  X_train.size(),    // Number of rows
+                  X_train.size(), // Number of rows
                   params, final_programs, history);
 
   // Debug printing
@@ -387,7 +392,7 @@ void run_symbolic_classification(const std::string &dataset_file) {
 
   // Train the model
   genetic::symFit(X_train_flat.data(), y_train.data(), sample_weights.data(),
-                  X_train.size(),    // Number of rows
+                  X_train.size(), // Number of rows
                   params, final_programs, history);
 
   // // print and check programs from hsitory
@@ -452,9 +457,9 @@ int main(int argc, char *argv[]) {
 
     std::string arg_dset(argv[1]);
 
-    #if PROFILE
-      ProfilerStart("my_profile.prof");
-    #endif
+#if PROFILE
+    ProfilerStart("my_profile.prof");
+#endif
 
     if (arg_dset == "diabetes") {
       run_symbolic_regression(regression_dataset);
@@ -464,9 +469,9 @@ int main(int argc, char *argv[]) {
       run_symbolic_regression(housing_dataset);
     }
 
-    #if PROFILE
-      ProfilerStop();
-    #endif
+#if PROFILE
+    ProfilerStop();
+#endif
 
     return 0;
   } catch (const std::exception &e) {

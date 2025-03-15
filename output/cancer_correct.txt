@@ -16,4 +16,4 @@ Best program 2 details:
 - Raw fitness: 0.089771
 - Test accuracy: 0.946903
 - Program: ( mult( sub( sub( cos( sq( sq( X10) ) ) , cos( sqrt( X22) ) ) , mult( X21, X7) ) , sqrt( X21) ) )
-Time(Symbolic Classification (End-to-End)) = 108.305251605 sec
+Time(Symbolic Classification (End-to-End)) = 108.348216015 sec
