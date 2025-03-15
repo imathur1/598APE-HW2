@@ -110,10 +110,10 @@ std::pair<T, T> train_test_split(const T &data, float test_size = 0.2) {
 
 // Calculate mean squared error
 float mean_squared_error(const std::vector<float> &y_true,
-                         const std::vector<float> &y_pred) {
-  if (y_true.size() != y_pred.size()) {
-    throw std::runtime_error("Arrays must have the same length");
-  }
+                         const float *y_pred) {
+  //   if (y_true.size() != y_pred.size()) {
+  //     throw std::runtime_error("Arrays must have the same length");
+  //   }
 
   float sum = 0.0f;
   for (size_t i = 0; i < y_true.size(); ++i) {
@@ -199,7 +199,6 @@ void findTop2Programs(genetic::program *programs, int size) {
   programs[0] = best1;
   programs[1] = best2;
 }
-
 
 void run_symbolic_regression(const std::string &dataset_file) {
   std::cout << "\n===== Symbolic Regression Benchmark =====\n" << std::endl;
@@ -292,13 +291,13 @@ void run_symbolic_regression(const std::string &dataset_file) {
   // Predict on top 2 candidates
   findTop2Programs(final_programs, params.population_size);
 
-  std::vector<float> y_pred1(X_test.size());
+  float *y_pred1 = new float[X_test.size()];
   genetic::symRegPredict(X_test_flat.data(), X_test.size(), &final_programs[0],
-                         y_pred1.data());
+                         y_pred1);
 
-  std::vector<float> y_pred2(X_test.size());
+  float *y_pred2 = new float[X_test.size()];
   genetic::symRegPredict(X_test_flat.data(), X_test.size(), &final_programs[1],
-                         y_pred2.data());
+                         y_pred2);
 
   // Calculate MSE on test set
   float mse = utils::mean_squared_error(y_test, y_pred1);
@@ -335,6 +334,8 @@ void run_symbolic_regression(const std::string &dataset_file) {
   ctimer_print(end_to_end_timer, "Symbolic Regression (End-to-End)");
 
   delete[] final_programs;
+  delete[] y_pred1;
+  delete[] y_pred2;
 }
 
 void run_symbolic_classification(const std::string &dataset_file) {
@@ -361,7 +362,7 @@ void run_symbolic_classification(const std::string &dataset_file) {
   std::vector<std::vector<float>> X_train = X_split.first;
   std::vector<std::vector<float>> X_test = X_split.second;
   std::vector<float> y_train = y_split.first;
-  std::vector<float> y_test = y_split.second;
+  //   std::vector<float> y_test = y_split.second;
 
   // Flatten data for genetic library (column-major)
   std::vector<float> X_train_flat = utils::flatten_column_major(X_train);
@@ -439,8 +440,8 @@ void run_symbolic_classification(const std::string &dataset_file) {
   genetic::symClfPredict(X_test_flat.data(), X_test.size(), params,
                          &final_programs[1], y_pred2.data());
 
-  float acc = utils::accuracy(y_test, y_pred1);
-  float acc2 = utils::accuracy(y_test, y_pred2);
+  float acc = utils::accuracy(y_split.second, y_pred1);
+  float acc2 = utils::accuracy(y_split.second, y_pred2);
 
   // Extract the best programs and print some stats
   if (history.back().size() > 0) {

@@ -124,7 +124,8 @@ void find_batched_fitness(int n_progs, program_t d_progs, float *score,
                           const float *data, const float *y,
                           const float *sample_weights) {
 
-  std::vector<float> y_pred((uint64_t)n_rows * (uint64_t)n_progs);
+  std::vector<float> y_pred;
+  y_pred.reserve((uint64_t)n_rows * (uint64_t)n_progs);
   execute(d_progs, n_rows, n_progs, data, y_pred.data());
 
   // Compute error
@@ -149,7 +150,8 @@ void set_batched_fitness(int n_progs, std::vector<program> &h_progs,
                          const float *data, const float *y,
                          const float *sample_weights) {
 
-  std::vector<float> score(n_progs);
+  std::vector<float> score;
+  score.reserve(n_progs);
 
   find_batched_fitness(n_progs, h_progs.data(), score.data(), params, n_rows,
                        data, y, sample_weights);
